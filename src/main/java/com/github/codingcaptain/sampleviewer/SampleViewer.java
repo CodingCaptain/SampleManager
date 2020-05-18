@@ -1,11 +1,12 @@
-package com.pw.sampleviewer;
+package com.github.codingcaptain.sampleviewer;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.pw.testproject.*;
+import com.github.codingcaptain.samplemanager.Sample;
+import com.github.codingcaptain.samplemanager.SampleManager;
 
 // class for viewing samples
 public class SampleViewer {

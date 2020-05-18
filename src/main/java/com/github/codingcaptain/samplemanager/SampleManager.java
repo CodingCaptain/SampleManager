@@ -1,4 +1,4 @@
-package com.pw.testproject;
+package com.github.codingcaptain.samplemanager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
