@@ -1,0 +1,10 @@
+Sample 0 on 26.10.1965 01:21:00 and has value: 0.0 and result: negative
+Sample 1 on 26.10.1977 01:21:00 and has value: 0.1 and result: negative
+Sample 2 on 26.10.1970 01:21:00 and has value: 0.2 and result: negative
+Sample 3 on 26.10.1991 01:21:00 and has value: 0.3 and result: questionable
+Sample 4 on 26.10.1963 01:21:00 and has value: 0.4 and result: questionable
+Sample 5 on 26.10.1952 01:21:00 and has value: 0.5 and result: questionable
+Sample 6 on 26.10.1955 01:21:00 and has value: 0.6 and result: positive
+Sample 7 on 26.10.1978 01:21:00 and has value: 0.7 and result: positive
+Sample 8 on 26.10.1957 01:21:00 and has value: 0.8 and result: positive
+Sample 9 on 26.10.1989 01:21:00 and has value: 0.9 and result: positive

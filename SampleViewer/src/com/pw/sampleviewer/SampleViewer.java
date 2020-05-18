@@ -1,19 +1,22 @@
 package com.pw.sampleviewer;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.pw.testproject.*;
 
+// class for viewing samples
 public class SampleViewer {
 
-	public static void main(String[] args) {		
+	public static void main(String[] args) throws IOException {		
 		
 		System.out.println("Welcome to a simple sample program.\n");
 		ArrayList<Sample> sampleList = new ArrayList<>();
 		
-		// generate data for samplelist
+		// generating data for sampleList 
+		// works without generating data but you have to type in your values to see results
 		for(int i = 0; i < 10 ; i++) {
 			int randomNum = ThreadLocalRandom.current().nextInt(1950, 2000 + 1);
 			Sample sample = new Sample();
@@ -29,7 +32,7 @@ public class SampleViewer {
 		}
 		
 		
-		// start managing our sample list
+		// start managing our sampleList
 		SampleManager sm = new SampleManager();
 
 		try {
