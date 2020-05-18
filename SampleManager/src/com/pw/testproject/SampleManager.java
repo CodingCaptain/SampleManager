@@ -1,135 +1,145 @@
 package com.pw.testproject;
 
+import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class SampleManager {
-	
-	public static Scanner scan = new Scanner(System.in);
-	public int sampleCounter = 0;
-	public boolean sampleCounterFlag = true;
-	
-	//print samples and format data before printing
-	public void printSample(Sample sample) {	
-		System.out.print("Sample "+sample.getId()+ " on "+sample.parsedDate());
-		// print values and results
-		for(int i = 0; i<sample.getValues().size();i++) {
-			System.out.print(" and has value: "); 
-			System.out.print(Math.round(sample.getValue(i) * 100.0) / 100.0);
-			System.out.print(" and result: ");
-			System.out.print(sample.getResult(i));
+
+	private final static Scanner SCANNER = new Scanner(System.in);
+	private int sampleCounter = 0;
+	private boolean sampleCounterFlag = true;
+	private List<Sample> sampleList = new ArrayList<>();
+	private StorageInterface sm = new StorageMemory();
+
+	SampleManager() {
+		System.out.println("Would you like to read in a file? \n1: yes \n0: no\n");
+		int type = SCANNER.nextInt();
+
+		switch (type) {
+		case 0:
+			sm = new StorageMemory();
+			break;
+		case 1:
+			sm = new StorageFile();
+			break;
 		}
-		System.out.print(".\n");
-	}
-	
-	public void nextTask(ArrayList<Sample> sampleList) throws ParseException {
 		
+		sampleList = sm.readInSamples();
+	}
+
+	/**
+	 * print samples and format data before printing
+	 */
+	public void printSample(Sample sample) {
+		System.out.print("Sample " + sample.getId() + " on " + sample.parsedDate());
+		// print values and results
+		System.out.print(" and has value: " + Math.round(sample.getValue() * 100.0) / 100.0);
+		System.out.print(" and result: ");
+		System.out.print(sample.getResult() + ".\n");
+	}
+
+	/**
+	 * next user task
+	 * 
+	 * @param sampleList is the list of samples
+	 * @throws ParseException thrown if parsing exception
+	 * @throws IOException    thrown if input exception or output exception
+	 */
+	public void nextTask() throws ParseException, IOException {
+
 		// getting sampleList for not producing new samples with old ids
-		if(sampleCounterFlag) {
-			sampleCounter = sampleList.size(); 
+		if (sampleCounterFlag) {
+			sampleCounter = sampleList.size();
 			sampleCounterFlag = false;
 		}
-		
+
 		// description for user input
 		System.out.println("\nPlease choose the next task.");
-		System.out.println("0: show all samples");		
-		System.out.println("1: insert new sample with value");
-		System.out.println("2: insert new value in sample value list");
-		System.out.println("3: remove list item of id");
-		System.out.println("4: exit application\n");
-		int task = scan.nextInt();
+		System.out.println("0: show/save all samples");
+		System.out.println("1: show/save all samples ordered by id");
+		System.out.println("2: show/save all samples ordered by date");
+		System.out.println("3: show/save all samples ordered by result");
+		System.out.println("4: insert new sample with value");
+		System.out.println("5: insert new value in sample value list");
+		System.out.println("6: remove list item of id");
+		System.out.println("7: exit application\n");
+		int task = SCANNER.nextInt();
 		int id = 0;
-		
-		// switch for tasks the program do
-		switch(task) {
-		 
-			// showing all entries sampleList ordered by id or date
-			case 0:	System.out.println("0: order by id, 1: order by date\n");
-					int subTask = scan.nextInt();
-					
-					if(subTask == 0) {
-						// short form of sorting list of samples by id
-						Collections.sort(sampleList, new Comparator<Sample>() {
-							  public int compare(Sample s1, Sample s2) {
-							      return s1.getId() - s2.getId();
-							  }
-						});
-					}else {
-						// short form of sorting list of samples by date
-						Collections.sort(sampleList, new Comparator<Sample>() {
-							  public int compare(Sample s1, Sample s2) {
-							      return s1.getDate().compareTo(s2.getDate());
-							  }
-						});
-					}
-					
-					// print list with function printSample()
-					for(Sample s : sampleList) {
-						printSample(s);
-					}
-				
-					break;
-			
-			// saving value for sample		
-			case 1: Sample sample = new Sample();
-					sample.setId(sampleCounter++);
-					Date date = new Date();
-					SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-					sample.setDate(sdf.format(date));
-					System.out.println("Please type in value, separated by comma ,\n");
-					double value = scan.nextDouble();
-					sample.setValue(sample.getValues().size(),value);
-					sampleList.add(sample);
-					break;
-				
-			// saving next value in sample's valueList		
-			case 2:
-					System.out.println("Which sample's value list would you like to extend?\n");
-					id = scan.nextInt();
-					System.out.println("Please type in value, separated by comma ,\n");
-					double val = scan.nextDouble();
-					sampleList.get(id).getValues().add(val);
-					break;
-			
-			// remove sample from sampleList		
-			case 3: 
-					System.out.println("Which sample should be removed?\n");
-					id = scan.nextInt(); 
-					int counter = 0;
-					Sample testSample = new Sample();
-					for(Sample s : sampleList) {
-						if(s.getId() == id) {
-							testSample = s;
-						}else {
-							counter++;
-						}
-					}
-									
-					if(!(counter == sampleList.size())) {
-						if(sampleList.remove(testSample)){
-							System.out.println("successfully removed sample "+id);}
-						else {
-							System.out.println("could not remove sample "+id);
-						}	
-					}else {
-						System.out.println("could not remove sample "+id);
-					}
-					break;
-			
-			// terminating program
-			case 4: 
-					System.out.println("\nGoodbye!");
-					System.exit(0);
-					break;
-				
+
+		// switch for tasks the program does
+		switch (task) {
+
+		// showing all entries of sampleList
+		case 0:
+			sampleList = sm.getAllSamples();
+			// print list with function printSample()
+			for (Sample s : sampleList) {
+				printSample(s);
+			}
+			break;
+
+		// showing all entries of sampleList ordered by id
+		case 1:
+			sampleList = sm.getAllSamplesById();
+			// print list with function printSample()
+			for (Sample s : sampleList) {
+				printSample(s);
+			}
+			break;
+
+		// showing all entries of sampleList ordered by date
+		case 2:
+			sampleList = sm.getAllSamplesByDate();
+			// print list with function printSample()
+			for (Sample s : sampleList) {
+				printSample(s);
+			}
+			break;
+
+		// showing all entries of sampleList ordered by result
+		case 3:
+			sampleList = sm.getAllSamplesByResult();
+			// print list with function printSample()
+			for (Sample s : sampleList) {
+				printSample(s);
+			}
+			break;
+
+		// saving value for sample
+		case 4:
+			System.out.println("Please type in a double value, (with comma as separator for german system language)\n");
+			double value = SCANNER.nextDouble();
+			sampleList.add(sm.newSample(value, sampleCounter++));
+			break;
+
+		// saving next value in sample's valueList
+		case 5:
+			System.out.println("Which sample's value would you like to set?\n");
+			id = SCANNER.nextInt();
+			System.out.println("Please type in a double value, (with comma as separator for german system language)\n");
+			double val = SCANNER.nextDouble();
+			sampleList.set(id, sm.addSampleValue(id, val));
+			break;
+
+		// remove sample from sampleList
+		case 6:
+			System.out.println("Which sample should be removed?\n");
+			id = SCANNER.nextInt();
+			sm.deleteSample(id);
+			break;
+
+		// terminating program
+		case 7:
+			System.out.println("\nGoodbye!");
+			System.exit(0);
+			break;
 		}
-		
-		nextTask(sampleList);		
+
+		// asking for next task
+		nextTask();
 	}
-	
+
 }
