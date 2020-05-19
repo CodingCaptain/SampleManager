@@ -15,8 +15,11 @@ public class SampleManager {
 	private StorageInterface sm = new StorageMemory();
 
 	SampleManager() {
-		System.out.println("Would you like to read in a file? \n1: yes \n0: no\n");
-		int type = SCANNER.nextInt();
+		int type = -1;
+		while(type != 0 && type != 1) {
+			System.out.println("Would you like to read in a file? \n1: yes \n0: no\n");
+			type = SCANNER.nextInt();
+		}
 
 		switch (type) {
 		case 0:

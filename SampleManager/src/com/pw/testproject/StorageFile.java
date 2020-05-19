@@ -103,7 +103,7 @@ public class StorageFile implements StorageInterface {
 	@Override
 	public Sample newSample(double value, int sampleCounter) throws ParseException {
 		Sample sample = new Sample();
-		sample.setId(sampleCounter++);
+		sample.setId(sampleCounter);
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
 		sample.setDate(sdf.format(date));
