@@ -16,9 +16,8 @@ class SampleManagerTest {
 
 		SampleManager sm = new SampleManager();
 		
-		// manually type in 0 or 1 for proceeding
 		assertThrows(NullPointerException.class, () -> sm.printSample(null));
-		
+				
 	}
 
 }

@@ -120,7 +120,7 @@ public class SampleManager {
 			System.out.println("Please type in a double value, (with comma as separator for german system language)\n");
 			double value = SCANNER.nextDouble();
 			sm.newSample(value, sampleCounter++);
-			sampleList = sm.getSampleList();
+			sampleList = sm.getAllSamples();
 			break;
 
 		// saving next value in sample's valueList

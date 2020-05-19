@@ -13,7 +13,6 @@ public class SampleViewer {
 		try {
 			sm.nextTask();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}	

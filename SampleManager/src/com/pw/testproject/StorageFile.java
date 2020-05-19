@@ -15,12 +15,10 @@ import java.util.Scanner;
 public class StorageFile implements StorageInterface {
 
 	private List<Sample> sampleList;
-
-	@Override
-	public List<Sample> getSampleList() {
-		return sampleList;
-	}
 	
+	/**
+	 * read in sampleList from text file
+	 */
 	@Override
 	public List<Sample> readInSamples() {
 
@@ -54,11 +52,19 @@ public class StorageFile implements StorageInterface {
 		return sampleList;
 	}
 
+	
+	/**
+	 * return sampleList without filtering
+	 */
 	@Override
 	public List<Sample> getAllSamples() {
 		return sampleList;
 	}
 
+
+	/**
+	 * return sampleList after ordering by id
+	 */
 	@Override
 	public List<Sample> getAllSamplesById() {
 		Collections.sort(sampleList, new Comparator<Sample>() {
@@ -69,6 +75,10 @@ public class StorageFile implements StorageInterface {
 		return sampleList;
 	}
 
+
+	/**
+	 * return sampleList after ordering by date
+	 */
 	@Override
 	public List<Sample> getAllSamplesByDate() {
 		List<Sample> sl = sampleList;
@@ -79,7 +89,10 @@ public class StorageFile implements StorageInterface {
 		});
 		return sl;
 	}
-
+	
+	/**
+	 * return sampleList after ordering by result string
+	 */
 	@Override
 	public List<Sample> getAllSamplesByResult() {
 		List<Sample> sl = sampleList;
@@ -90,7 +103,11 @@ public class StorageFile implements StorageInterface {
 		});
 		return sl;
 	}
-
+	
+	/**
+	 * create new sample by providing value
+	 * and update output file
+	 */
 	@Override
 	public Sample newSample(double value, int sampleCounter) throws ParseException {
 		Sample sample = new Sample();
@@ -109,8 +126,8 @@ public class StorageFile implements StorageInterface {
 				output = s.getId() + ";" + s.parsedDate() + ";";
 				output += Math.round(s.getValue() * 100.0) / 100.0 + ";";
 				output += s.getResult();
+				fw.write(output + "\n");
 			}
-			fw.write(output + "\n");
 			fw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,7 +135,11 @@ public class StorageFile implements StorageInterface {
 
 		return sample;
 	}
-
+	
+	/**
+	 * update value for existing sample in sampleList
+	 * and update output file 
+	 */
 	@Override
 	public Sample addSampleValue(int id, double value) {
 		sampleList.get(id).setValue(value);
@@ -131,8 +152,8 @@ public class StorageFile implements StorageInterface {
 				output = s.getId() + ";" + s.parsedDate() + ";";
 				output += Math.round(s.getValue() * 100.0) / 100.0 + ";";
 				output += s.getResult();
+				fw.write(output + "\n");
 			}
-			fw.write(output + "\n");
 			fw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -140,7 +161,11 @@ public class StorageFile implements StorageInterface {
 
 		return sampleList.get(id);
 	}
-
+	
+	/**
+	 * check id in sampleList, delete corresponding sample
+	 * and update output file
+	 */
 	@Override
 	public void deleteSample(int id) {
 
@@ -172,8 +197,8 @@ public class StorageFile implements StorageInterface {
 				output = s.getId() + ";" + s.parsedDate() + ";";
 				output += Math.round(s.getValue() * 100.0) / 100.0 + ";";
 				output += s.getResult();
+				fw.write(output + "\n");
 			}
-			fw.write(output + "\n");
 			fw.close();
 		} catch (Exception e) {
 			e.printStackTrace();

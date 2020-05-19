@@ -12,12 +12,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class StorageMemory implements StorageInterface {
 
 	private List<Sample> sampleList;
-
-	@Override
-	public List<Sample> getSampleList() {
-		return sampleList;
-	}
 	
+	/**
+	 * generating new sampleList
+	 */
 	@Override
 	public List<Sample> readInSamples() {
 
@@ -39,12 +37,18 @@ public class StorageMemory implements StorageInterface {
 		
 		return sampleList;
 	}
-
+	
+	/**
+	 * return sampleList without filtering
+	 */
 	@Override
 	public List<Sample> getAllSamples() {
 		return sampleList;
 	}
-
+	
+	/**
+	 * return sampleList after ordering by id
+	 */
 	@Override
 	public List<Sample> getAllSamplesById() {
 		Collections.sort(sampleList, new Comparator<Sample>() {
@@ -54,7 +58,10 @@ public class StorageMemory implements StorageInterface {
 		});
 		return sampleList;
 	}
-
+	
+	/**
+	 * return sampleList after ordering by date
+	 */
 	@Override
 	public List<Sample> getAllSamplesByDate() {
 		List<Sample> sl = sampleList;
@@ -65,7 +72,10 @@ public class StorageMemory implements StorageInterface {
 		});
 		return sl;
 	}
-
+	
+	/**
+	 * return sampleList after ordering by result string
+	 */
 	@Override
 	public List<Sample> getAllSamplesByResult() {
 		List<Sample> sl = sampleList;
@@ -77,6 +87,9 @@ public class StorageMemory implements StorageInterface {
 		return sl;
 	}
 
+	/**
+	 * create new sample by providing value
+	 */
 	@Override
 	public Sample newSample(double value, int sampleCounter) throws ParseException {
 		Sample sample = new Sample();
@@ -88,12 +101,18 @@ public class StorageMemory implements StorageInterface {
 		return sample;
 	}
 
+	/**
+	 * update value for existing sample in sampleList
+	 */
 	@Override
 	public Sample addSampleValue(int id, double value) {
 		sampleList.get(id).setValue(value);
 		return sampleList.get(id);
 	}
 
+	/**
+	 * check id in sampleList and delete corresponding sample
+	 */
 	@Override
 	public void deleteSample(int id) {
 		int counter = 0;
