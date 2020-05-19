@@ -42,7 +42,8 @@ public class Sample {
 	}
 	
 	public String getResult() {
-		double val = getValue();		// set result texts
+		double val = getValue();		
+		// set imaginary result texts
 		if(val<=0.3) {
 			setResult("negative");
 		}else if(val>0.3 && val<=0.6){

@@ -14,6 +14,11 @@ public class StorageMemory implements StorageInterface {
 	private List<Sample> sampleList;
 
 	@Override
+	public List<Sample> getSampleList() {
+		return sampleList;
+	}
+	
+	@Override
 	public List<Sample> readInSamples() {
 
 		sampleList = new ArrayList<>();

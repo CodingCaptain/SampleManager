@@ -14,6 +14,9 @@ public class SampleManager {
 	private List<Sample> sampleList = new ArrayList<>();
 	private StorageInterface sm = new StorageMemory();
 
+	/**
+	 * constructor of SampleManager class
+	 */
 	SampleManager() {
 		int type = -1;
 		while(type != 0 && type != 1) {
@@ -21,6 +24,7 @@ public class SampleManager {
 			type = SCANNER.nextInt();
 		}
 
+		// decide whether in-memory or file storage should be used
 		switch (type) {
 		case 0:
 			sm = new StorageMemory();
@@ -115,7 +119,8 @@ public class SampleManager {
 		case 4:
 			System.out.println("Please type in a double value, (with comma as separator for german system language)\n");
 			double value = SCANNER.nextDouble();
-			sampleList.add(sm.newSample(value, sampleCounter++));
+			sm.newSample(value, sampleCounter++);
+			sampleList = sm.getSampleList();
 			break;
 
 		// saving next value in sample's valueList

@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface StorageInterface {
 	
+	List<Sample> getSampleList();
+	
 	List<Sample> readInSamples();
 	
 	List<Sample> getAllSamples();

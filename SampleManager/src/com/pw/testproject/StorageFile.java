@@ -17,6 +17,11 @@ public class StorageFile implements StorageInterface {
 	private List<Sample> sampleList;
 
 	@Override
+	public List<Sample> getSampleList() {
+		return sampleList;
+	}
+	
+	@Override
 	public List<Sample> readInSamples() {
 
 		sampleList = new ArrayList<>();		
@@ -51,20 +56,6 @@ public class StorageFile implements StorageInterface {
 
 	@Override
 	public List<Sample> getAllSamples() {
-		FileWriter fw;
-		try {
-			fw = new FileWriter("output.txt");
-			String output = "";
-			for (Sample s : sampleList) {
-				output = s.getId() + ";" + s.parsedDate() + ";";
-				output += Math.round(s.getValue() * 100.0) / 100.0 + ";";
-				output += s.getResult();
-				fw.write(output + "\n");
-			}
-			fw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return sampleList;
 	}
 
@@ -188,5 +179,4 @@ public class StorageFile implements StorageInterface {
 			e.printStackTrace();
 		}
 	}
-
 }
