@@ -43,7 +43,7 @@ public class SampleManager {
 	public void printSample(Sample sample) {
 		System.out.print("Sample " + sample.getId() + " on " + sample.parsedDate());
 		// print values and results
-		System.out.print(" and has value: " + Math.round(sample.getValue() * 100.0) / 100.0);
+		System.out.print(" has value: " + Math.round(sample.getValue() * 100.0) / 100.0);
 		System.out.print(" and result: ");
 		System.out.print(sample.getResult() + ".\n");
 	}
@@ -65,14 +65,15 @@ public class SampleManager {
 
 		// description for user input
 		System.out.println("\nPlease choose the next task.");
-		System.out.println("0: show/save all samples");
-		System.out.println("1: show/save all samples ordered by id");
-		System.out.println("2: show/save all samples ordered by date");
-		System.out.println("3: show/save all samples ordered by result");
-		System.out.println("4: insert new sample with value");
-		System.out.println("5: insert new value in sample value list");
-		System.out.println("6: remove list item of id");
-		System.out.println("7: exit application\n");
+		System.out.println("0: show all samples");
+		System.out.println("1: show all samples ordered by id");
+		System.out.println("2: show all samples ordered by date");
+		System.out.println("3: show all samples ordered by result");
+		System.out.println("4: show only samples with result");
+		System.out.println("5: insert new sample with value");
+		System.out.println("6: insert new value in sample value list");
+		System.out.println("7: remove list item of id");
+		System.out.println("8: exit application\n");
 		int task = SCANNER.nextInt();
 		int id = 0;
 
@@ -114,33 +115,43 @@ public class SampleManager {
 				printSample(s);
 			}
 			break;
+			
+		//showing only samples with result
+		case 4:
+			System.out.println("Please type in positive, questionable or negative for the sampleList you would like to view.\n");
+			String result = SCANNER.next();
+			List<Sample> resultSampleList= sm.getOnlySamplesOfResult(result);
+			for (Sample s : resultSampleList) {
+				printSample(s);
+			}
+			break;
 
 		// saving value for sample
-		case 4:
-			System.out.println("Please type in a double value, (with comma as separator for german system language)\n");
+		case 5:
+			System.out.println("Please type in a double value, (with comma as separator for german system language).\n");
 			double value = SCANNER.nextDouble();
 			sm.newSample(value, sampleCounter++);
 			sampleList = sm.getAllSamples();
 			break;
 
 		// saving next value in sample's valueList
-		case 5:
+		case 6:
 			System.out.println("Which sample's value would you like to set?\n");
 			id = SCANNER.nextInt();
-			System.out.println("Please type in a double value, (with comma as separator for german system language)\n");
+			System.out.println("Please type in a double value, (with comma as separator for german system language).\n");
 			double val = SCANNER.nextDouble();
 			sampleList.set(id, sm.addSampleValue(id, val));
 			break;
 
 		// remove sample from sampleList
-		case 6:
+		case 7:
 			System.out.println("Which sample should be removed?\n");
 			id = SCANNER.nextInt();
 			sm.deleteSample(id);
 			break;
 
 		// terminating program
-		case 7:
+		case 8:
 			System.out.println("\nGoodbye!");
 			System.exit(0);
 			break;

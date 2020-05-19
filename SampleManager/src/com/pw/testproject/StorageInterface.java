@@ -31,10 +31,18 @@ public interface StorageInterface {
 
 	/**
 	 * order all samples by result string, then get them as list
-	 * @return
+	 * @return sampleList
 	 */
 	List<Sample> getAllSamplesByResult();
 
+
+	/**
+	 * get reduced sampleList of results with positive, questionable or negative only
+	 * @param result string to look for
+	 * @return sampleList
+	 */
+	List<Sample> getOnlySamplesOfResult(String result);
+	
 	/**
 	 * creating new sample entry by providing a new value. The rest will be generated
 	 * @param value is the value of the sample represented by a double

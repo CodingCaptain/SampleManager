@@ -86,6 +86,21 @@ public class StorageMemory implements StorageInterface {
 		});
 		return sl;
 	}
+	
+	/**
+	 * get reduced sampleList of results with positive, questionable or negative only
+	 */
+	@Override
+	public List<Sample> getOnlySamplesOfResult(String result) {
+		List<Sample> sl = sampleList;
+		List<Sample> slo = new ArrayList<>();
+		for(Sample s : sl) {
+			if(s.getResult().contains(result)) {
+				slo.add(s);
+			}
+		}
+		return slo;		
+	}
 
 	/**
 	 * create new sample by providing value
@@ -135,5 +150,4 @@ public class StorageMemory implements StorageInterface {
 			System.out.println("could not remove sample " + id);
 		}
 	}
-
 }
